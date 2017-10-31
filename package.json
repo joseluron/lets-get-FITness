@@ -1,0 +1,32 @@
+{
+  "name": "lets-get-fitness",
+  "version": "1.0.0",
+  "description": "Jose Luis Coalla Cencerrado's TFG",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joseluron/lets-get-FITness.git"
+  },
+  "keywords": [
+    "Angular 2",
+    "Express",
+    "MongoDB",
+    "NodeJS",
+    "MEAN Stack",
+    "TFG",
+    "UPM"
+  ],
+  "author": "Jose Luis Coalla Cencerrado",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joseluron/lets-get-FITness/issues"
+  },
+  "homepage": "https://github.com/joseluron/lets-get-FITness#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.12.5"
+  }
+}
