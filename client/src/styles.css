@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family:'Roboto';
+    src: url('./assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype'), 
+        url('./assets/fonts/Roboto/Roboto-Thin.ttf') format('truetype'), 
+        url('./assets/fonts/Roboto/Roboto-Bold.ttf') format('truetype'); 
+}
+
+html {
+    font-family: 'Roboto';
+}
+
+body {
+    /* #6DCFE5 #85C1E9  */
+    background-color: #66A1D1 ; 
+    font-family: inherit ;
+}
