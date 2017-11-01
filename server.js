@@ -4,6 +4,7 @@ const router = express.Router();
 
 const mongoose = require('mongoose');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const config = require('./config/config-dev');
 const users = require('./routes/users')(router);
@@ -17,6 +18,8 @@ mongoose.connect(config.uri, (err) => {
     }
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // app.use(express.static(__dirname + '/client/dist/'));
 app.use('/users', users);
 
