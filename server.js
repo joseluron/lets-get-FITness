@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
+const router = express.Router();
 
 const mongoose = require('mongoose');
 const path = require('path');
 
 const config = require('./config/config-dev');
+const users = require('./routes/users')(router);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
@@ -16,6 +18,7 @@ mongoose.connect(config.uri, (err) => {
 });
 
 // app.use(express.static(__dirname + '/client/dist/'));
+app.use('/users', users);
 
 app.get('*', (req, res) => {
     res.send('<h1>Hello World!</h1>');
