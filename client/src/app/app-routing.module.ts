@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
 import { AllRoutinesComponent } from './components/all-routines/all-routines.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const appRoutes: Routes = [
     {
@@ -18,16 +19,17 @@ const appRoutes: Routes = [
         component: AllRoutinesComponent
     },
     {
+        path: 'sign-up',
+        component: SignUpComponent
+    },
+    {
         path: '**',
         component: HomeComponent
     },
 ];
 
 @NgModule({
-    declarations: [],
     imports: [ RouterModule.forRoot(appRoutes) ],
-    providers: [],
-    bootstrap: [],
     exports: [RouterModule]
 })
 
