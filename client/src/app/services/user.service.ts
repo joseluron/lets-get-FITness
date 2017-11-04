@@ -17,4 +17,12 @@ export class UserService {
     return this.http.post(this.uri + '/users/createUser', user).map(res => res.json());
   }
 
+  checkUsernameAvailability(username: string) {
+    return this.http.get(this.uri + '/users/checkUsernameAvailability/' + username).map(res => res.json());
+  }
+
+  checkEmailAvailability(email: string) {
+    return this.http.get(this.uri + '/users/checkEmailAvailability/' + email).map(res => res.json());
+  }
+
 }

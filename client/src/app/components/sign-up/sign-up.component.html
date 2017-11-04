@@ -1,29 +1,37 @@
 <h1 class="page-header">Registro de Usuario</h1>
 
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
 <div class="thumbnail  register-block-thumbnail">
   <form [formGroup]="signUpForm" (submit)="onSignUp()">
     <div class="form-group">
       <label for="username">Nombre de Usuario:</label>
-      <div [ngClass]="{ 'has-success': !signUpForm.controls.username.errors , 'has-error': (signUpForm.controls.username.errors && signUpForm.controls.username.dirty)}">
-        <input type="text" name="username" class="form-control" autocomplete="off" placeholder="*Nombre de Usuario" formControlName="username">
+      <div [ngClass]="{ 'has-success': !signUpForm.controls.username.errors && usernameAvailable , 'has-error': (signUpForm.controls.username.errors && signUpForm.controls.username.dirty) || (!usernameAvailable && signUpForm.controls.username.dirty)}">
+        <input type="text" name="username" class="form-control" autocomplete="off" placeholder="*Nombre de Usuario" formControlName="username" (input)="onUsernameChange()" (blur)="checkUsernameAvailability()">
         <ul class="help-block">
           <li *ngIf="signUpForm.controls.username.errors?.required && signUpForm.controls.username.dirty">Debe introducir un nombre de usuario</li>
           <li *ngIf="signUpForm.controls.username.errors?.minlength && signUpForm.controls.username.dirty">El nombre de usuario debe tener un mínimo de 3 caracteres</li>
           <li *ngIf="signUpForm.controls.username.errors?.maxlength && signUpForm.controls.username.dirty">El nombre de usuario debe tener un máximo de 18 caracteres</li>
           <li *ngIf="signUpForm.controls.username.errors?.notValidUsername && signUpForm.controls.username.dirty && !signUpForm.controls.username.errors?.required">El nombre de usuario no puede contener caracteres especiales</li>
+          <li *ngIf="usernameMessage && !signUpForm.controls.username.errors?.minlength && !signUpForm.controls.username.errors?.maxlength && !signUpForm.controls.username.errors?.notValidUsername">{{ usernameMessage }}</li>
         </ul>
       </div>
     </div>
   
     <div class="form-group">
       <label for="email">Correo Electrónico:</label>
-      <div [ngClass]="{ 'has-success': !signUpForm.controls.email.errors , 'has-error': (signUpForm.controls.email.errors && signUpForm.controls.email.dirty)}">
-        <input type="text" name="email" class="form-control" autocomplete="off" placeholder="*Correo Electrónico" formControlName="email">
+      <div [ngClass]="{ 'has-success': !signUpForm.controls.email.errors && emailAvailable , 'has-error': (signUpForm.controls.email.errors && signUpForm.controls.email.dirty) || (!emailAvailable && signUpForm.controls.email.dirty)}">
+        <input type="text" name="email" class="form-control" autocomplete="off" placeholder="*Correo Electrónico" formControlName="email" (input)="onEmailChange()" (blur)="checkEmailAvailability()">
         <ul class="help-block">
           <li *ngIf="signUpForm.controls.email.errors?.required && signUpForm.controls.email.dirty">Debe introducir un correo electrónico</li>
           <li *ngIf="signUpForm.controls.email.errors?.minlength && signUpForm.controls.email.dirty">El correo electrónico debe tener un mínimo de 5 caracteres</li>
           <li *ngIf="signUpForm.controls.email.errors?.maxlength && signUpForm.controls.email.dirty">El correo electrónico debe tener un máximo de 30 caracteres</li>
           <li *ngIf="signUpForm.controls.email.errors?.notValidEmail && signUpForm.controls.email.dirty && !signUpForm.controls.email.errors?.required">El correo electrónico debe tener un formato adecuado</li>
+          <li *ngIf="emailMessage">{{ emailMessage }}</li>
         </ul>
       </div>
     </div>
@@ -35,7 +43,7 @@
         <ul class="help-block">
           <li *ngIf="signUpForm.controls.password.errors?.required && signUpForm.controls.password.dirty">Debe introducir una contraseña</li>
           <li *ngIf="signUpForm.controls.password.errors?.minlength && signUpForm.controls.password.dirty">La contraseña debe tener un mínimo de 4 caracteres</li>
-          <li *ngIf="signUpForm.controls.password.errors?.maxlength && signUpForm.controls.password.dirty">La contraseña debe tener un mínimo de 15 caracteres</li>
+          <li *ngIf="signUpForm.controls.password.errors?.maxlength && signUpForm.controls.password.dirty">La contraseña debe tener un máximo de 15 caracteres</li>
         </ul>
       </div>
     </div>
@@ -46,11 +54,11 @@
         <input type="password" name="equivalentPassword" class="form-control" autocomplete="off" placeholder="*Contraseña" formControlName="equivalentPassword">
         <ul class="help-block">
           <li *ngIf="signUpForm.controls.equivalentPassword.errors?.required && signUpForm.controls.equivalentPassword.dirty">Debe volver a introducir la contraseña anterior</li>
-          <li *ngIf="signUpForm.errors?.notEquivalentPasswords &&signUpForm.controls.equivalentPassword.dirty">Las contraseñas no coinciden</li>
+          <li *ngIf="signUpForm.errors?.notEquivalentPasswords && signUpForm.controls.equivalentPassword.dirty && !signUpForm.controls.equivalentPassword.errors?.required">Las contraseñas no coinciden</li>
         </ul>
       </div>
     </div>
   
-    <input [disabled]="!signUpForm.valid" type="submit" class="btn btn-primary" value="Enviar">
+    <input [disabled]="!signUpForm.valid || processing || !emailAvailable || !usernameAvailable" type="submit" class="btn btn-primary" value="Enviar">
   </form>
 </div>

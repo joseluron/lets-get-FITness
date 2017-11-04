@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { UserService } from '../../services/user.service';
 
@@ -13,9 +14,17 @@ import { NewUser } from '../../models/newUser';
 export class SignUpComponent implements OnInit {
 
   signUpForm: FormGroup;
+  message: string;
+  messageClass: string;
+  processing = false;
+  usernameAvailable: boolean;
+  usernameMessage: string;
+  emailAvailable: boolean;
+  emailMessage: string;
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
     private userService: UserService
   ) {
     this.createSignUpForm();
@@ -44,6 +53,20 @@ export class SignUpComponent implements OnInit {
         Validators.required
       ])]
     }, { validator: this.comparePasswords('password', 'equivalentPassword') });
+  }
+
+  disableSignUpForm() {
+    this.signUpForm.controls['username'].disable();
+    this.signUpForm.controls['email'].disable();
+    this.signUpForm.controls['password'].disable();
+    this.signUpForm.controls['equivalentPassword'].disable();
+  }
+
+  enableSignUpForm() {
+    this.signUpForm.controls['username'].enable();
+    this.signUpForm.controls['email'].enable();
+    this.signUpForm.controls['password'].enable();
+    this.signUpForm.controls['equivalentPassword'].enable();
   }
 
   validateUsername(controls: FormControl) {
@@ -76,6 +99,9 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUp() {
+    this.processing = true;
+    this.disableSignUpForm();
+
     const newUser: NewUser = {
       username: this.signUpForm.get('username').value,
       email: this.signUpForm.get('email').value,
@@ -83,8 +109,59 @@ export class SignUpComponent implements OnInit {
     };
 
     this.userService.createUser(newUser).subscribe(data => {
-      console.log(data);
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
+        this.processing = false;
+        this.enableSignUpForm();
+      } else {
+        this.messageClass = 'alert alert-success';
+        this.message = data.message;
+        setTimeout(() => {
+          this.router.navigate(['/sign-in']);
+        }, 2000);
+      }
     });
+  }
+
+  checkUsernameAvailability() {
+    const username = this.signUpForm.get('username').value;
+
+    if (username) {
+      this.userService.checkUsernameAvailability(username).subscribe(data => {
+        if (!data.success) {
+          this.usernameAvailable = false;
+          this.usernameMessage = data.message;
+        } else {
+          this.usernameAvailable = true;
+          this.usernameMessage = data.message;
+        }
+      });
+    }
+  }
+
+  checkEmailAvailability() {
+    const email = this.signUpForm.get('email').value;
+
+    if (email) {
+      this.userService.checkEmailAvailability(email).subscribe(data => {
+        if (!data.success) {
+          this.emailAvailable = false;
+          this.emailMessage = data.message;
+        } else {
+          this.emailAvailable = true;
+          this.emailMessage = data.message;
+        }
+      });
+    }
+  }
+
+  onUsernameChange() {
+    this.usernameMessage = '';
+  }
+
+  onEmailChange() {
+    this.emailMessage = '';
   }
 
   ngOnInit() {
