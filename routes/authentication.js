@@ -32,5 +32,35 @@ module.exports = (router) => {
         }
     });
 
+    router.use((req, res, next) => {
+        const token = req.headers['token'];
+        if (!token) {
+            res.json({ success: false, message: 'No se ha facilitado un token de autorización' });
+        } else {
+            jwt.verify(token, config.secret, (err, decodedToken) => {
+                if (err) {
+                    res.json({ success: false, message: 'El token ha caducado. ' + err });
+                } else {
+                    req.decodedToken = decodedToken;
+                    next();
+                }
+            });
+        }
+    });
+    
+    router.get('/getUserProfile', (req, res) => {
+        User.findOne({ _id: req.decodedToken.userId }).select('username email').exec((err, user) => {
+            if (err) {
+                res.json({ success: false, message: err });
+            } else {
+                if (!user) {
+                    res.json({ success: false, message: 'Usuario no encontrado' });
+                } else {
+                    res.json({ success: true, user: user });
+                }
+            }
+        });
+    });
+
     return router;
 }
