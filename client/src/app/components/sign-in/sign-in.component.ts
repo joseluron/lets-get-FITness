@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { IdentifyUser } from '../../models/identifyUser';
+import { SignInUser } from '../../models/signInUser';
 
 @Component({
   selector: 'app-sign-in',
@@ -47,7 +47,7 @@ onSignIn() {
   this.processing = true;
   this.disableSignInForm();
 
-  const identifyUser: IdentifyUser = {
+  const signInUser: SignInUser = {
     username: this.signInForm.get('username').value,
     password: this.signInForm.get('password').value
   };

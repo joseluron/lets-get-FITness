@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { UserService } from './services/user.service';
+import { AuthenticationService } from './services/authentication.service';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -30,7 +31,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     AppRoutingModule
   ],
   providers: [
-    UserService
+    UserService,
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
