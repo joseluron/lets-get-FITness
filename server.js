@@ -9,6 +9,7 @@ const cors = require('cors');
 
 const config = require('./config/config-dev');
 const users = require('./routes/users')(router);
+const authentication = require('./routes/authentication')(router);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err) => {
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // app.use(express.static(__dirname + '/client/dist/'));
 app.use('/users', users);
+app.use('/authentication', authentication);
 
 app.get('*', (req, res) => {
     res.send('<h1>Hello World!</h1>');

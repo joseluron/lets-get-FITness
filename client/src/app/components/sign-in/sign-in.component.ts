@@ -50,7 +50,7 @@ onSignIn() {
   const identifyUser: IdentifyUser = {
     username: this.signInForm.get('username').value,
     password: this.signInForm.get('password').value
-  }
+  };
 }
 
   ngOnInit() {
