@@ -5,13 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { UserService } from './services/user.service';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { AllRoutinesComponent } from './components/all-routines/all-routines.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-
-import { UserService } from './services/user.service';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UserService } from './services/user.service';
     NavbarComponent,
     HomeComponent,
     AllRoutinesComponent,
-    SignUpComponent
+    SignUpComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,

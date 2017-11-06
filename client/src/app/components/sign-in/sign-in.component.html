@@ -1,0 +1,33 @@
+<h1 class="page-header">Inicio de Sesión de Usuario</h1>
+
+<div class="row show-hide-message">
+  <div [ngClass]="messageClass">
+    {{ message }}
+  </div>
+</div>
+
+<div class="thumbnail  register-block-thumbnail">
+  <form [formGroup]="signInForm" (submit)="onSignIn()">
+    <div class="form-group">
+      <label for="username">Nombre de Usuario:</label>
+      <div [ngClass]="{ 'has-success': signInForm.controls.username.valid && signInForm.controls.username.dirty , 'has-error': signInForm.controls.username.errors && signInForm.controls.username.dirty }">
+        <input type="text" name="username" class="form-control" autocomplete="off" placeholder="*Nombre de Usuario" formControlName="username">
+        <ul class="help-block">
+          <li *ngIf="signInForm.controls.username.errors?.required && signInForm.controls.username.dirty">Debe introducir un nombre de usuario</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <div [ngClass]="{ 'has-success': signInForm.controls.password.valid && signInForm.controls.password.dirty , 'has-error': signInForm.controls.password.errors && signInForm.controls.password.dirty }">
+        <input type="text" name="password" class="form-control" autocomplete="off" placeholder="*Contraseña" formControlName="password">
+        <ul class="help-block">
+          <li *ngIf="signInForm.controls.password.errors?.required && signInForm.controls.password.dirty">Debe introducir una contraseña</li>
+        </ul>
+      </div>
+    </div>
+  
+    <input [disabled]="!signInForm.valid || processing" type="submit" class="btn btn-primary" value="Enviar">
+  </form>
+</div>

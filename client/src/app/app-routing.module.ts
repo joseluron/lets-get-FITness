@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AllRoutinesComponent } from './components/all-routines/all-routines.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 const appRoutes: Routes = [
     {
@@ -21,6 +22,10 @@ const appRoutes: Routes = [
     {
         path: 'sign-up',
         component: SignUpComponent
+    },
+    {
+        path: 'sign-in',
+        component: SignInComponent
     },
     {
         path: '**',
