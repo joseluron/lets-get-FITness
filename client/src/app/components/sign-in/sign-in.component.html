@@ -21,7 +21,7 @@
     <div class="form-group">
       <label for="password">Contraseña:</label>
       <div [ngClass]="{ 'has-success': signInForm.controls.password.valid && signInForm.controls.password.dirty , 'has-error': signInForm.controls.password.errors && signInForm.controls.password.dirty }">
-        <input type="text" name="password" class="form-control" autocomplete="off" placeholder="*Contraseña" formControlName="password">
+        <input type="password" name="password" class="form-control" autocomplete="off" placeholder="*Contraseña" formControlName="password">
         <ul class="help-block">
           <li *ngIf="signInForm.controls.password.errors?.required && signInForm.controls.password.dirty">Debe introducir una contraseña</li>
         </ul>

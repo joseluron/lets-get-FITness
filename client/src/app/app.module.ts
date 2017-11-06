@@ -14,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AllRoutinesComponent } from './components/all-routines/all-routines.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     HomeComponent,
     AllRoutinesComponent,
     SignUpComponent,
-    SignInComponent
+    SignInComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
