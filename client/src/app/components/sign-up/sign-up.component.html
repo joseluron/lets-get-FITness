@@ -31,7 +31,7 @@
           <li *ngIf="signUpForm.controls.email.errors?.minlength && signUpForm.controls.email.dirty">El correo electrónico debe tener un mínimo de 5 caracteres</li>
           <li *ngIf="signUpForm.controls.email.errors?.maxlength && signUpForm.controls.email.dirty">El correo electrónico debe tener un máximo de 30 caracteres</li>
           <li *ngIf="signUpForm.controls.email.errors?.notValidEmail && signUpForm.controls.email.dirty && !signUpForm.controls.email.errors?.required">El correo electrónico debe tener un formato adecuado</li>
-          <li *ngIf="emailMessage">{{ emailMessage }}</li>
+          <li *ngIf="emailMessage && !signUpForm.controls.email.errors?.minlength && !signUpForm.controls.email.errors?.maxlength && !signUpForm.controls.email.errors?.notValidEmail">{{ emailMessage }}</li>
         </ul>
       </div>
     </div>

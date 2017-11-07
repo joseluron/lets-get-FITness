@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
   onSignOut() {
     this.authenticationService.signOut();
     this.flashMessagesService.show('Ha cerrado su sesión', { cssClass: 'alert-info' });
-    this.router.navigate(['/home']);
   }
 
   ngOnInit() {
