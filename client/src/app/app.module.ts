@@ -9,6 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
 
+import { AuthenticatedGuard } from './guards/authenticated.guard';
+import { NotAuthenticatedGuard } from './guards/not-authenticated.guard';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
@@ -36,7 +39,9 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
   ],
   providers: [
     UserService,
-    AuthenticationService
+    AuthenticationService,
+    AuthenticatedGuard,
+    NotAuthenticatedGuard
   ],
   bootstrap: [AppComponent]
 })

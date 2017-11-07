@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthenticatedGuard } from './guards/authenticated.guard';
+import { NotAuthenticatedGuard } from './guards/not-authenticated.guard';
+
 import { HomeComponent } from './components/home/home.component';
 import { AllRoutinesComponent } from './components/all-routines/all-routines.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -18,19 +21,23 @@ const appRoutes: Routes = [
     },
     {
         path: 'all-routines',
-        component: AllRoutinesComponent
+        component: AllRoutinesComponent,
+        canActivate: [AuthenticatedGuard]
     },
     {
         path: 'sign-up',
-        component: SignUpComponent
+        component: SignUpComponent,
+        canActivate: [NotAuthenticatedGuard]
     },
     {
         path: 'sign-in',
-        component: SignInComponent
+        component: SignInComponent,
+        canActivate: [NotAuthenticatedGuard]
     },
     {
         path: 'user-profile',
-        component: UserProfileComponent
+        component: UserProfileComponent,
+        canActivate: [AuthenticatedGuard]
     },
     {
         path: '**',
@@ -39,7 +46,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [ RouterModule.forRoot(appRoutes) ],
+    imports: [RouterModule.forRoot(appRoutes)],
     exports: [RouterModule]
 })
 
