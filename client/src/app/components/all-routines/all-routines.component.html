@@ -1,1 +1,43 @@
 <h1 class="page-header">Rutinas</h1>
+
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newRoutine" (click)="newRoutineForm()">Nueva Rutina</button>
+<button type="button" name="button" class="btn btn-default reload-button" *ngIf="!newRoutine" (click)="reloadAllRoutines()" [disabled]="reloadingRoutines"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recargar</button>
+
+<br>
+<br>
+
+<div *ngIf="!newRoutine">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Titulo Rutina</h3>
+        </div>
+        <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+        </div>
+        <div class="panel-footer">
+            <p><strong>Creado por: </strong> User</p>
+            <p><strong>Fecha: </strong>Fecha</p>
+            <div>
+                <p><Strong>Likes: </Strong>22</p>
+            </div>
+            <a href="#" type="button" name="button" class="btn btn-sm btn-info">Editar</a>
+            <a href="#" type="button" name="button" class="btn btn-sm btn-danger">Eliminar</a>
+            <div>
+                <button type="button" name="button" class="btn btn-sm btn-success">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Like
+                </button>
+            </div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment()">Comentar</button>
+                <!-- <br>
+                <form>
+                    <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
+                    <button type="button" name="button" class="btn btn-sm btn-info">Dejar Comentario</button>
+                    <button type="button" name="button" class="btn btn-sm btn-danger">Cancelar</button>
+                </form> -->
+            </li>
+        </ul>
+    </div>
+</div>
