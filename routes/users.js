@@ -42,7 +42,7 @@ module.exports = (router) => {
                                             if (err.errors.password) {
                                                 res.json({ success: false, message: err.errors.password.message });
                                             } else {
-                                                res.json({ success: false, message: err });
+                                                res.json({ success: false, message: err.errmsg });
                                             }
                                         }
                                     }

@@ -19,7 +19,7 @@ let validTitle = (title) => {
     if (!title) {
         return false;
     } else {
-        const regExp = new RegExp(/^[a-zA-Z0-9]+$/);
+        const regExp = new RegExp(/^[a-zA-Z0-9 ]+$/);
         return regExp.test(title);
     }
 };
