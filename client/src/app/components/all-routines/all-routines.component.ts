@@ -20,6 +20,8 @@ export class AllRoutinesComponent implements OnInit {
   reloadingRoutines = false;
   processing = false;
 
+  user: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private routineService: RoutineService,
@@ -90,8 +92,28 @@ export class AllRoutinesComponent implements OnInit {
       title: this.routineForm.get('title').value,
       description: this.routineForm.get('description').value,
       body: this.routineForm.get('body').value,
-      createdBy: this.authenticationService.authenticatedUser.username
+      // createdBy: this.authenticationService.authenticatedUser.username
+      createdBy: this.user
     };
+
+    this.routineService.createRoutine(newRoutine).subscribe(data => {
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
+        this.processing = false;
+        this.enableRoutineForm();
+      } else {
+        this.messageClass = 'alert alert-success';
+        this.message = data.message;
+        setTimeout(() => {
+          this.inRoutineForm = false;
+          this.processing = false;
+          this.message = undefined;
+          this.messageClass = undefined;
+          this.routineForm.reset();
+        }, 2000);
+      }
+    });
   }
 
   goBack() {
@@ -103,6 +125,9 @@ export class AllRoutinesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authenticationService.getUserProfile().subscribe(data => {
+      this.user = data.user.username;
+    });
   }
 
 }

@@ -1,5 +1,11 @@
 <h1 class="page-header">Rutinas</h1>
 
+<div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+        {{ message }}
+    </div>
+</div>
+
 <button type="button" name="button" class="btn btn-warning" *ngIf="!inRoutineForm" (click)="openRoutineForm()">Nueva Rutina</button>
 <button type="button" name="button" class="btn btn-default reload-button" *ngIf="!inRoutineForm" (click)="reloadAllRoutines()" [disabled]="reloadingRoutines"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recargar</button>
 
