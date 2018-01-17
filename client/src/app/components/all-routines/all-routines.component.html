@@ -1,12 +1,57 @@
 <h1 class="page-header">Rutinas</h1>
 
-<button type="button" name="button" class="btn btn-warning" *ngIf="!newRoutine" (click)="newRoutineForm()">Nueva Rutina</button>
-<button type="button" name="button" class="btn btn-default reload-button" *ngIf="!newRoutine" (click)="reloadAllRoutines()" [disabled]="reloadingRoutines"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recargar</button>
+<button type="button" name="button" class="btn btn-warning" *ngIf="!inRoutineForm" (click)="openRoutineForm()">Nueva Rutina</button>
+<button type="button" name="button" class="btn btn-default reload-button" *ngIf="!inRoutineForm" (click)="reloadAllRoutines()" [disabled]="reloadingRoutines"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recargar</button>
+
+<div *ngIf="inRoutineForm" class="thumbnail routineForm-block-thumbnail">
+    <form [formGroup]="routineForm" name="routineForm" (submit)="onCreateRoutine()">
+        <div class="form-group">
+            <label for="title">Título</label>
+            <div [ngClass]="{ 'has-success': !routineForm.controls.title.errors, 'has-error': routineForm.controls.title.errors && routineForm.controls.title.dirty }">
+                <input type="text" name="title" class="form-control" placeholder="*Título de la rutina" autocomplete="off" formControlName="title">
+                <ul class="help-block">
+                    <li *ngIf="routineForm.controls.title.errors?.required && routineForm.controls.title.dirty">Debe introducir un título para la rutina</li>
+                    <li *ngIf="routineForm.controls.title.errors?.minlength && routineForm.controls.title.dirty">El título de la rutina debe tener un mínimo de 5 caracteres</li>
+                    <li *ngIf="routineForm.controls.title.errors?.maxlength && routineForm.controls.title.dirty">El título de la rutina debe tener un máximo de 50 caracteres</li>
+                    <li *ngIf="routineForm.controls.title.errors?.notValidTitle && routineForm.controls.title.dirty && !routineForm.controls.title.errors?.required">El título de la rutina no puede contener caracteres especiales</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <div [ngClass]="{ 'has-success': !routineForm.controls.description.errors, 'has-error': routineForm.controls.description.errors && routineForm.controls.description.dirty }">
+                <textarea name="description" cols="40" rows="2" class="form-control" placeholder="*Introduzca una breve descripción del contenido de la rutina" autocomplete="off" formControlName="description"></textarea>
+                <ul class="help-block">
+                    <li *ngIf="routineForm.controls.description.errors?.required && routineForm.controls.description.dirty">Debe introducir una descripción para la rutina</li>
+                    <li *ngIf="routineForm.controls.description.errors?.minlength && routineForm.controls.description.dirty">La descripción de la rutina debe tener un mínimo de 5 caracteres</li>
+                    <li *ngIf="routineForm.controls.description.errors?.maxlength && routineForm.controls.description.dirty">La descripción de la rutina debe tener un máximo de 120 caracteres</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="body">Desarrollo de la Rutina</label>
+            <div [ngClass]="{ 'has-success': !routineForm.controls.body.errors, 'has-error': routineForm.controls.body.errors && routineForm.controls.body.dirty }">
+                <textarea name="body" cols="40" rows="15" class="form-control" placeholder="*Desarrolle la rutina introduciendo los ejercicios, número de series, número de repeticiones..." autocomplete="off" formControlName="body"></textarea>
+                <ul class="help-block">
+                    <li *ngIf="routineForm.controls.body.errors?.required && routineForm.controls.body.dirty">Debe introducir el desarrollo de la rutina</li>
+                    <li *ngIf="routineForm.controls.body.errors?.minlength && routineForm.controls.body.dirty">El desarrollo de la rutina debe tener un mínimo de 5 caracteres</li>
+                    <li *ngIf="routineForm.controls.body.errors?.maxlength && routineForm.controls.body.dirty">El desarrollo de la rutina debe tener un máximo de 1000 caracteres</li>
+                </ul>
+            </div>
+        </div>
+
+        <input [disabled]="!routineForm.valid || processing" type="submit" class="btn btn-primary" value="Enviar">
+        <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle"></span>&nbsp;&nbsp;Cancelar</button>
+
+    </form>
+</div>
 
 <br>
 <br>
 
-<div *ngIf="!newRoutine">
+<div *ngIf="!inRoutineform">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Titulo Rutina</h3>

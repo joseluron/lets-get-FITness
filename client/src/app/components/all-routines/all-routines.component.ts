@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { AuthenticationService } from '../../services/authentication.service';
+
+import { NewRoutine } from '../../models/newRoutine';
 
 @Component({
   selector: 'app-all-routines',
@@ -7,15 +12,64 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllRoutinesComponent implements OnInit {
 
+  routineForm: FormGroup;
   message: string;
   messageClass: string;
-  newRoutine = false;
+  inRoutineForm = false;
   reloadingRoutines = false;
+  processing = false;
 
-  constructor() { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authenticationService: AuthenticationService
+  ) {
+    this.createRoutineForm();
+  }
 
-  newRoutineForm() {
-    this.newRoutine = true;
+  createRoutineForm() {
+    this.routineForm = this.formBuilder.group({
+      title: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+        this.validateTitle
+      ])],
+      description: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(120)
+      ])],
+      body: ['', Validators.compose([
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(1000)
+      ])]
+    });
+  }
+
+  disableRoutineForm() {
+    this.routineForm.controls['title'].disable();
+    this.routineForm.controls['description'].disable();
+    this.routineForm.controls['body'].disable();
+  }
+
+  enableRoutineForm() {
+    this.routineForm.controls['title'].enable();
+    this.routineForm.controls['description'].enable();
+    this.routineForm.controls['body'].enable();
+  }
+
+  validateTitle(controls: FormControl) {
+    const regExp = new RegExp(/^[a-zA-Z0-9 ]+$/);
+    if (regExp.test(controls.value)) {
+      return null;
+    } else {
+      return { 'notValidTitle': true };
+    }
+  }
+
+  openRoutineForm() {
+    this.inRoutineForm = true;
   }
 
   reloadAllRoutines() {
@@ -24,6 +78,22 @@ export class AllRoutinesComponent implements OnInit {
     setTimeout(() => {
       this.reloadingRoutines = false;
     }, 4000);
+  }
+
+  onCreateRoutine() {
+    this.processing = true;
+    this.disableRoutineForm();
+
+    const newRoutine: NewRoutine = {
+      title: this.routineForm.get('title').value,
+      description: this.routineForm.get('description').value,
+      body: this.routineForm.get('body').value,
+      createdBy: this.authenticationService.authenticatedUser.username
+    };
+  }
+
+  goBack() {
+    window.location.reload();
   }
 
   draftComment() {
