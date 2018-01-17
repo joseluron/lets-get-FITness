@@ -92,7 +92,6 @@ export class AllRoutinesComponent implements OnInit {
       title: this.routineForm.get('title').value,
       description: this.routineForm.get('description').value,
       body: this.routineForm.get('body').value,
-      // createdBy: this.authenticationService.authenticatedUser.username
       createdBy: this.user
     };
 
@@ -111,6 +110,7 @@ export class AllRoutinesComponent implements OnInit {
           this.message = undefined;
           this.messageClass = undefined;
           this.routineForm.reset();
+          this.enableRoutineForm();
         }, 2000);
       }
     });

@@ -22,7 +22,7 @@ module.exports = (router) => {
                             if (!equivalentPasswords) {
                                 res.json({ success: false, message: 'Contraseña incorrecta'});
                             } else {
-                                const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' });
+                                const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '30000' });
                                 res.json({ success: true, message: 'Usuario identificado corréctamente', token: token, user: { username: user.username } });
                             }
                         }
@@ -39,7 +39,8 @@ module.exports = (router) => {
         } else {
             jwt.verify(token, config.secret, (err, decodedToken) => {
                 if (err) {
-                    res.json({ success: false, message: 'El token ha caducado. ' + err });
+                    // res.json({ success: false, message: 'El token ha caducado. ' + err });
+                    res.json({ success: false, message: 'Su sesión ha caducado. Por favor, cierre y vuelva a iniciar sesión' });
                 } else {
                     req.decodedToken = decodedToken;
                     next();
