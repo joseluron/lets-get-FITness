@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { RoutineService } from '../../services/routine.service';
 import { AuthenticationService } from '../../services/authentication.service';
 
 import { NewRoutine } from '../../models/newRoutine';
@@ -21,6 +22,7 @@ export class AllRoutinesComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private routineService: RoutineService,
     private authenticationService: AuthenticationService
   ) {
     this.createRoutineForm();

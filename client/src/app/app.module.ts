@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { UserService } from './services/user.service';
 import { AuthenticationService } from './services/authentication.service';
+import { RoutineService } from './services/routine.service';
 
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { NotAuthenticatedGuard } from './guards/not-authenticated.guard';
@@ -40,6 +41,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
   providers: [
     UserService,
     AuthenticationService,
+    RoutineService,
     AuthenticatedGuard,
     NotAuthenticatedGuard
   ],
