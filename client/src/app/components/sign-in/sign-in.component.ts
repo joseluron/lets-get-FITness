@@ -84,7 +84,7 @@ onSignIn() {
   ngOnInit() {
     if (this.authenticatedGuard.redirectUri) {
       this.messageClass = 'alert alert-danger';
-      this.message = 'Debe haber iniciado sesión para poder ver esa página';
+      this.message = 'Su sesión ha caducado. Inicie sesión para poder ver esa página';
       this.previousUri = this.authenticatedGuard.redirectUri;
       this.authenticatedGuard.redirectUri = undefined;
     }

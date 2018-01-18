@@ -128,6 +128,9 @@ export class AllRoutinesComponent implements OnInit {
     this.authenticationService.getUserProfile().subscribe(data => {
       this.user = data.user.username;
     });
+    this.routineService.getAllRoutines().subscribe(data => {
+      console.log(data.routines[0]);
+    });
   }
 
 }

@@ -33,4 +33,9 @@ export class RoutineService {
     return this.http.post(this.uri + '/routines/createRoutine', newRoutine, this.requestOptions).map(res => res.json());
   }
 
+  getAllRoutines() {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.uri + '/routines/getAllRoutines', this.requestOptions).map(res => res.json());
+  }
+
 }

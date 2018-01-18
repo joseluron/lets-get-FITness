@@ -22,7 +22,7 @@ module.exports = (router) => {
                             if (!equivalentPasswords) {
                                 res.json({ success: false, message: 'Contraseña incorrecta'});
                             } else {
-                                const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '30000' });
+                                const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24h' });
                                 res.json({ success: true, message: 'Usuario identificado corréctamente', token: token, user: { username: user.username } });
                             }
                         }

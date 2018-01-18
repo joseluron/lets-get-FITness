@@ -55,5 +55,19 @@ module.exports = (router) => {
         }
     });
 
+    router.get('/getAllRoutines', (req, res) => {
+        Routine.find({}, (err, routines) => {
+            if (err) {
+                res.json({ success: false, message: err });
+            } else {
+                if (!routines) {
+                    res.json({ success: false, message: 'No se han encontrado rutinas' });
+                } else {
+                    res.json({ success: true, routines: routines });
+                }
+            }
+        });
+    });
+
     return router;
 }
