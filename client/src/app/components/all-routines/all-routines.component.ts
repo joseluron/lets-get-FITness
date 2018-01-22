@@ -81,7 +81,9 @@ export class AllRoutinesComponent implements OnInit {
 
   reloadAllRoutines() {
     this.reloadingRoutines = true;
-    // Get all routines
+    this.routineService.getAllRoutines().subscribe(data => {
+      this.routines = data.routines;
+    });
     setTimeout(() => {
       this.reloadingRoutines = false;
     }, 4000);
