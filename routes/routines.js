@@ -63,10 +63,10 @@ module.exports = (router) => {
                 if (!routines) {
                     res.json({ success: false, message: 'No se han encontrado rutinas' });
                 } else {
-                    res.json({ success: true, routines: routines });
+                    res.json({ success: true, routines });
                 }
             }
-        });
+        }).sort({ '_id': -1 });
     });
 
     return router;

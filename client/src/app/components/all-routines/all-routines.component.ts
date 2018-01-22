@@ -5,6 +5,7 @@ import { RoutineService } from '../../services/routine.service';
 import { AuthenticationService } from '../../services/authentication.service';
 
 import { NewRoutine } from '../../models/newRoutine';
+import { DatabaseRoutine } from '../../models/databaseRoutine';
 
 @Component({
   selector: 'app-all-routines',
@@ -21,6 +22,8 @@ export class AllRoutinesComponent implements OnInit {
   processing = false;
 
   user: string;
+
+  routines: DatabaseRoutine [] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -124,12 +127,16 @@ export class AllRoutinesComponent implements OnInit {
 
   }
 
+  seeRoutine(routineID: string) {
+    console.log(routineID);
+  }
+
   ngOnInit() {
     this.authenticationService.getUserProfile().subscribe(data => {
       this.user = data.user.username;
     });
     this.routineService.getAllRoutines().subscribe(data => {
-      console.log(data.routines[0]);
+      this.routines = data.routines;
     });
   }
 

@@ -1,7 +1,15 @@
+a {
+    text-decoration: none;
+}
+
 .reload-button {
     background-color: #f8f8f8;
 }
 
 .routineForm-block-thumbnail {
     background-color: #f8f8f8;
+}
+
+.seeRoutine-button {
+    text-align: center;
 }

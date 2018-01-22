@@ -57,7 +57,7 @@
 <br>
 <br>
 
-<div *ngIf="!inRoutineform">
+<div *ngIf="!inRoutineForm">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Titulo Rutina</h3>
@@ -90,5 +90,31 @@
                 </form> -->
             </li>
         </ul>
+    </div>
+</div>
+
+<div *ngIf="!inRoutineForm">
+    <div class="col-sm-6 col-md-4" *ngFor="let routine of routines">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ routine.title }}</h3>
+            </div>
+            <div class="panel-body">
+                {{ routine.description }}
+            </div>
+            <div class="panel-footer">
+                <p><strong>Creado por: </strong>{{ routine.createdBy }}</p>
+                <p><strong>Fecha: </strong>{{ routine.createdAt | date: 'dd - MM - yyyy'}}</p>
+                <p><strong>Likes: </strong>{{ routine.likes }}</p>
+                <div class="seeRoutine-button">
+                    <a [routerLink]="['/see-routine', routine._id]">
+                        <button type="button" name="button" class="btn btn-primary">Ver</button>
+                    </a>
+                    <a [routerLink]="['/edit-routine', routine._id]" *ngIf="user === routine.createdBy">
+                        <button type="button" name="button" class="btn btn-danger">Editar</button>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
