@@ -20,6 +20,7 @@ import { AllRoutinesComponent } from './components/all-routines/all-routines.com
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { EditRoutineComponent } from './components/edit-routine/edit-routine.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     AllRoutinesComponent,
     SignUpComponent,
     SignInComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    EditRoutineComponent
   ],
   imports: [
     BrowserModule,
