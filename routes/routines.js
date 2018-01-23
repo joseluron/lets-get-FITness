@@ -69,5 +69,23 @@ module.exports = (router) => {
         }).sort({ '_id': -1 });
     });
 
+    router.get('/getRoutine/:id', (req, res) => {
+        if(!req.params.id) {
+            res.json({ success: false, message: 'No se ha facilitado un ID de rutina' });
+        } else {
+            Routine.findOne({ _id: req.params.id}, (err, routine) => {
+                if(err) {
+                    res.json({ success: false, message: err });
+                } else {
+                    if(!routine) {
+                        res.json({ success: false, message: 'No se ha encontrado ninguna rurina' });
+                    } else {
+                        res.json({ success: true, routine: routine });
+                    }
+                }
+            });
+        }
+    });
+
     return router;
 }

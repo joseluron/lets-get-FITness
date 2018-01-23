@@ -39,7 +39,6 @@ module.exports = (router) => {
         } else {
             jwt.verify(token, config.secret, (err, decodedToken) => {
                 if (err) {
-                    // res.json({ success: false, message: 'El token ha caducado. ' + err });
                     res.json({ success: false, message: 'Su sesión ha caducado. Por favor, cierre y vuelva a iniciar sesión' });
                 } else {
                     req.decodedToken = decodedToken;
