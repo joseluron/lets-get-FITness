@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { AuthenticationService } from './authentication.service';
 
 import { NewRoutine } from '../models/newRoutine';
+import { ToEditRoutine } from '../models/toEditRoutine';
 
 @Injectable()
 export class RoutineService {
@@ -41,6 +42,11 @@ export class RoutineService {
   getRoutine(id: string) {
     this.createAuthenticationHeaders();
     return this.http.get(this.uri + '/routines/getRoutine/' + id, this.requestOptions).map(res => res.json());
+  }
+
+  editRoutine(routine: ToEditRoutine) {
+    this.createAuthenticationHeaders();
+    return this.http.put(this.uri + '/routines/editRoutine', routine, this.requestOptions).map(res => res.json());
   }
 
 }
