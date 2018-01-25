@@ -6,11 +6,46 @@
   </div>
 </div>
 
-<div class="thumbnail editRoutineForm-block-thumbnail">
-  <form [formGroup]="editRoutineForm" name="editRoutineform" (submit)="updateRoutine()">
+<div *ngIf="!loadingPage" class="thumbnail editRoutineForm-block-thumbnail">
+  <form [formGroup]="editRoutineForm" name="editRoutineform" (submit)="onUpdateRoutine()">
     <div class="form-group">
       <label for="title">Título</label>
-      <input type="text" name="title" placeholder="Título de la Rutina" class="form-control" formControlName="title">
+      <div [ngClass]="{ 'has-success': !editRoutineForm.controls.title.errors, 'has-error': editRoutineForm.controls.title.errors && editRoutineForm.controls.title.dirty }">
+        <input type="text" name="title" placeholder="*Título de la Rutina" class="form-control" formControlName="title" autocomplete="off">
+        <ul class="help-block">
+          <li *ngIf="editRoutineForm.controls.title.errors?.required && editRoutineForm.controls.title.dirty">Debe introducir un título para la rutina</li>
+          <li *ngIf="editRoutineForm.controls.title.errors?.minlength && editRoutineForm.controls.title.dirty">El título de la rutina debe tener un mínimo de 5 caracteres</li>
+          <li *ngIf="editRoutineForm.controls.title.errors?.maxlength && editRoutineForm.controls.title.dirty">El título de la rutina debe tener un máximo de 50 caracteres</li>
+          <li *ngIf="editRoutineForm.controls.title.errors?.notValidTitle && editRoutineForm.controls.title.dirty && !editRoutineForm.controls.title.errors?.required">El título de la rutina no puede contener caracteres especiales</li>
+        </ul>
+      </div>
     </div>
+
+    <div class="form-group">
+      <label for="description">Descripción</label>
+      <div [ngClass]="{ 'has-success': !editRoutineForm.controls.description.errors, 'has-error': editRoutineForm.controls.description.errors && editRoutineForm.controls.description.dirty }">
+        <textarea name="description" cols="40" rows="2" class="form-control" placeholder="*Descripción de la rutina" formControlName="description" autocomplete="off"></textarea>
+        <ul class="help-block">
+          <li *ngIf="editRoutineForm.controls.description.errors?.required && editRoutineForm.controls.description.dirty">Debe introducir una descripción para la rutina</li>
+          <li *ngIf="editRoutineForm.controls.description.errors?.minlength && editRoutineForm.controls.description.dirty">La descripción de la rutina debe tener un mínimo de 5 caracteres</li>
+          <li *ngIf="editRoutineForm.controls.description.errors?.maxlength && editRoutineForm.controls.description.dirty">La descripción de la rutina debe tener un máximo de 120 caracteres</li>
+      </ul>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="body">Desarrollo de la Rutina</label>
+      <div [ngClass]="{ 'has-success': !editRoutineForm.controls.body.errors, 'has-error': editRoutineForm.controls.body.errors && editRoutineForm.controls.body.dirty }">
+        <textarea name="body" cols="40" rows="15" class="form-control" placeholder="*Desarrollo de la rutina" formControlName="body" autocomplete="off"></textarea>
+        <ul class="help-block">
+          <li *ngIf="editRoutineForm.controls.body.errors?.required && editRoutineForm.controls.body.dirty">Debe introducir el desarrollo de la rutina</li>
+          <li *ngIf="editRoutineForm.controls.body.errors?.minlength && editRoutineForm.controls.body.dirty">El desarrollo de la rutina debe tener un mínimo de 5 caracteres</li>
+          <li *ngIf="editRoutineForm.controls.body.errors?.maxlength && editRoutineForm.controls.body.dirty">El desarrollo de la rutina debe tener un máximo de 1000 caracteres</li>
+      </ul>
+      </div>
+    </div>
+
+    <input [disabled]="!editRoutineForm.valid || processing" type="submit" class="btn btn-primary" value="Modificar">
+    <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-danger">Cancelar</button>
   </form>
 </div>

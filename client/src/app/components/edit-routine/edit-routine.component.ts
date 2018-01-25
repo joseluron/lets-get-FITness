@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { RoutineService } from '../../services/routine.service';
 
@@ -18,11 +19,14 @@ export class EditRoutineComponent implements OnInit {
   editRoutineForm: FormGroup;
   routine: ToEditRoutine;
   routineId: string;
+  loadingPage = true;
+  processing = false;
 
   constructor(
     private routineService: RoutineService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private location: Location
   ) {
     this.createEditRoutineForm();
   }
@@ -69,15 +73,26 @@ export class EditRoutineComponent implements OnInit {
     }
   }
 
-  updateRoutine() {
+  onUpdateRoutine() {
+    this.processing = true;
+  }
 
+  goBack() {
+    this.location.back();
   }
 
   ngOnInit() {
     this.routineId = this.activatedRoute.snapshot.params.id;
     this.routineService.getRoutine(this.routineId).subscribe( data => {
-      this.editRoutineForm.controls['title'].setValue(data.routine.title);
-      console.log(this.editRoutineForm.get('title').value);
+      if (!data.success) {
+        this.messageClass = 'alert alert-danger';
+        this.message = 'Rutina no encontrada';
+      } else {
+        this.loadingPage = false;
+        this.editRoutineForm.controls['title'].setValue(data.routine.title);
+        this.editRoutineForm.controls['description'].setValue(data.routine.description);
+        this.editRoutineForm.controls['body'].setValue(data.routine.body);
+      }
     });
   }
 
