@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { RoutineService } from '../../services/routine.service';
@@ -26,6 +26,7 @@ export class EditRoutineComponent implements OnInit {
     private routineService: RoutineService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private location: Location
   ) {
     this.createEditRoutineForm();
@@ -75,6 +76,27 @@ export class EditRoutineComponent implements OnInit {
 
   onUpdateRoutine() {
     this.processing = true;
+
+    const toEditRoutine: ToEditRoutine = {
+      _id: this.routineId,
+      title: this.editRoutineForm.get('title').value,
+      description: this.editRoutineForm.get('description').value,
+      body: this.editRoutineForm.get('body').value
+    };
+
+    this.routineService.editRoutine(toEditRoutine).subscribe(data => {
+      if (!data.success) {
+        this.processing = false;
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
+      } else {
+        this.messageClass = 'alert alert-success';
+        this.message = data.message;
+        setTimeout(() => {
+          this.router.navigate(['/see-routine', this.routineId]);
+        }, 2000);
+      }
+    });
   }
 
   goBack() {
