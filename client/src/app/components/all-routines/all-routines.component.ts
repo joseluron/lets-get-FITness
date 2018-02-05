@@ -129,10 +129,6 @@ export class AllRoutinesComponent implements OnInit {
 
   }
 
-  seeRoutine(routineID: string) {
-    console.log(routineID);
-  }
-
   ngOnInit() {
     this.authenticationService.getUserProfile().subscribe(data => {
       this.user = data.user.username;
