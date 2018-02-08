@@ -105,10 +105,10 @@ export class EditRoutineComponent implements OnInit {
 
   ngOnInit() {
     this.routineId = this.activatedRoute.snapshot.params.id;
-    this.routineService.getRoutine(this.routineId).subscribe( data => {
+    this.routineService.getRoutineToEdit(this.routineId).subscribe( data => {
       if (!data.success) {
         this.messageClass = 'alert alert-danger';
-        this.message = 'Rutina no encontrada';
+        this.message = data.message;
       } else {
         this.loadingPage = false;
         this.editRoutineForm.controls['title'].setValue(data.routine.title);

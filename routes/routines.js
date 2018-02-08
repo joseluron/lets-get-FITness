@@ -80,6 +80,24 @@ module.exports = (router) => {
                     if(!routine) {
                         res.json({ success: false, message: 'No se ha encontrado ninguna rutina' });
                     } else {
+                        res.json({ success: true, routine: routine });
+                    }
+                }
+            });
+        }
+    });
+    
+    router.get('/getRoutineToEdit/:id', (req, res) => {
+        if(!req.params.id) {
+            res.json({ success: false, message: 'No se ha facilitado un ID de rutina' });
+        } else {
+            Routine.findOne({ _id: req.params.id}, (err, routine) => {
+                if(err) {
+                    res.json({ success: false, message: 'ID de rutina no valida' });
+                } else {
+                    if(!routine) {
+                        res.json({ success: false, message: 'No se ha encontrado ninguna rutina' });
+                    } else {
                         User.findOne({ _id: req.decodedToken.userId }, (err, user) => {
                             if (err) {
                                 res.json({ success: false, message: err });

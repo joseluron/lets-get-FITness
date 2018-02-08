@@ -44,6 +44,11 @@ export class RoutineService {
     return this.http.get(this.uri + '/routines/getRoutine/' + id, this.requestOptions).map(res => res.json());
   }
 
+  getRoutineToEdit(id: string) {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.uri + '/routines/getRoutineToEdit/' + id, this.requestOptions).map(res => res.json());
+  }
+
   editRoutine(routine: ToEditRoutine) {
     this.createAuthenticationHeaders();
     return this.http.put(this.uri + '/routines/editRoutine', routine, this.requestOptions).map(res => res.json());

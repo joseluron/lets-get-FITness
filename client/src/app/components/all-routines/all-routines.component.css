@@ -13,3 +13,7 @@ a {
 .seeRoutine-button {
     text-align: center;
 }
+
+.panel-body {
+    min-height: 75px;
+}

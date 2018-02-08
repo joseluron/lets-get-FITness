@@ -5,8 +5,10 @@ export class DatabaseRoutine {
     body: string;
     createdBy: string;
     createdAt: Date;
-    comments: {
-        comment: string;
-        commentator: string;
-    };
+    comments: [
+        {
+            comment: string;
+            commentator: string;
+        }
+    ];
 }

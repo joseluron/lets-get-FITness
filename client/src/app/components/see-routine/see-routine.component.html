@@ -1,1 +1,43 @@
 <h1 class="page-header">Ver Rutina</h1>
+
+<div class="row show-hide-message">
+    <div [ngClass]="messageClass">
+        {{ message }}
+    </div>
+</div>
+
+<div *ngIf="!loadingPage">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ routine.title }}</h3>
+        </div>
+        <div class="panel-body">
+            {{ routine.body }}
+        </div>
+        <div class="panel-footer">
+            <p><strong>Creado por: </strong>{{ routine.createdBy }}</p>
+            <p><strong>Fecha: </strong>{{ routine.createdAt | date: 'dd - MM - yyyy' }}</p>
+            <p><Strong>Likes: </Strong>{{ routine.likes }}</p>
+            <div *ngIf="user === routine.createdBy">
+                <a [routerLink]="['/edit-routine/', routine._id]" type="button" name="button" class="btn btn-sm btn-info">Editar</a>
+                <a [routerLink]="['/delete-routine/', routine._id]" type="button" name="button" class="btn btn-sm btn-danger">Eliminar</a>
+            </div>
+            <div *ngIf="user !== routine.createdBy">
+                <button type="button" name="button" class="btn btn-sm btn-success">
+                    <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Like
+                </button>
+            </div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment()">Comentar</button>
+                <!-- <br>
+                <form>
+                    <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
+                    <button type="button" name="button" class="btn btn-sm btn-info">Dejar Comentario</button>
+                    <button type="button" name="button" class="btn btn-sm btn-danger">Cancelar</button>
+                </form> -->
+            </li>
+        </ul>
+    </div>
+</div>

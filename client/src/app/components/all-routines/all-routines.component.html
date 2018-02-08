@@ -58,61 +58,27 @@
 <br>
 
 <div *ngIf="!inRoutineForm">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Titulo Rutina</h3>
-        </div>
-        <div class="panel-body">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-        </div>
-        <div class="panel-footer">
-            <p><strong>Creado por: </strong> User</p>
-            <p><strong>Fecha: </strong>Fecha</p>
-            <div>
-                <p><Strong>Likes: </Strong>22</p>
-            </div>
-            <a href="#" type="button" name="button" class="btn btn-sm btn-info">Editar</a>
-            <a href="#" type="button" name="button" class="btn btn-sm btn-danger">Eliminar</a>
-            <div>
-                <button type="button" name="button" class="btn btn-sm btn-success">
-                    <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Like
-                </button>
-            </div>
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment()">Comentar</button>
-                <!-- <br>
-                <form>
-                    <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
-                    <button type="button" name="button" class="btn btn-sm btn-info">Dejar Comentario</button>
-                    <button type="button" name="button" class="btn btn-sm btn-danger">Cancelar</button>
-                </form> -->
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div *ngIf="!inRoutineForm">
-    <div class="col-sm-6 col-md-4" *ngFor="let routine of routines">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">{{ routine.title }}</h3>
-            </div>
-            <div class="panel-body">
-                {{ routine.description }}
-            </div>
-            <div class="panel-footer">
-                <p><strong>Creado por: </strong>{{ routine.createdBy }}</p>
-                <p><strong>Fecha: </strong>{{ routine.createdAt | date: 'dd - MM - yyyy'}}</p>
-                <p><strong>Likes: </strong>{{ routine.likes }}</p>
-                <div class="seeRoutine-button">
-                    <a [routerLink]="['/see-routine', routine._id]">
-                        <button type="button" name="button" class="btn btn-primary">Ver</button>
-                    </a>
-                    <a [routerLink]="['/edit-routine', routine._id]" *ngIf="user === routine.createdBy">
-                        <button type="button" name="button" class="btn btn-danger">Editar</button>
-                    </a>
+    <div class="row">
+        <div class="col-md-6" *ngFor="let routine of routines">
+            <div class="panel panel-primary" >
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ routine.title }}</h3>
+                </div>
+                <div class="panel-body">
+                    {{ routine.description }}
+                </div>
+                <div class="panel-footer">
+                    <p><strong>Creado por: </strong>{{ routine.createdBy }}</p>
+                    <p><strong>Fecha: </strong>{{ routine.createdAt | date: 'dd - MM - yyyy'}}</p>
+                    <p><strong>Likes: </strong>{{ routine.likes }}</p>
+                    <div class="seeRoutine-button">
+                        <a [routerLink]="['/see-routine', routine._id]">
+                            <button type="button" name="button" class="btn btn-primary">Ver</button>
+                        </a>
+                        <a [routerLink]="['/edit-routine', routine._id]" *ngIf="user === routine.createdBy">
+                            <button type="button" name="button" class="btn btn-danger">Editar</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
