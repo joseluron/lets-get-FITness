@@ -1,0 +1,43 @@
+
+<h1 class="page-header">Eliminar Rutina</h1>
+
+<div class="row show-hide-message" *ngIf="message">
+  <div [ngClass]="messageClass">
+      {{ message }}
+  </div>
+</div>
+
+<div *ngIf="foundRoutine">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" name="button" class="close" data-sismiss="modal">&times;</button>
+      <h4 class="modal-title">Confirmar</h4>
+    </div>
+    <div class="modal-body">
+      <p>¿Está seguro de que quiere eliminar esta rutina?</p>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="processing" type="button" name="button" (click)="onDeleteRoutine()" class="btn btn-primary">Si</button>
+      <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-danger">Cancelar</button>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{ routine.title }}</h3>
+    </div>
+    <div class="panel-footer">
+      {{ routine.description }}
+    </div>
+    <div class="panel-body">
+      {{ routine.body }}
+    </div>
+    <div class="panel-footer">
+      <p><strong>Creado por: </strong>{{ routine.createdBy }}</p>
+      <p><strong>Creado en: </strong>{{ routine.createdAt | date: 'dd - MM - yyyy' }}</p>
+      <p><strong>Likes: </strong>{{ routine.likes }}</p>
+    </div>
+  </div>
+</div>

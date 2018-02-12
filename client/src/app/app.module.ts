@@ -22,6 +22,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { EditRoutineComponent } from './components/edit-routine/edit-routine.component';
 import { SeeRoutineComponent } from './components/see-routine/see-routine.component';
+import { DeleteRoutineComponent } from './components/delete-routine/delete-routine.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SeeRoutineComponent } from './components/see-routine/see-routine.compon
     SignInComponent,
     UserProfileComponent,
     EditRoutineComponent,
-    SeeRoutineComponent
+    SeeRoutineComponent,
+    DeleteRoutineComponent
   ],
   imports: [
     BrowserModule,

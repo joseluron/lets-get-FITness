@@ -54,4 +54,9 @@ export class RoutineService {
     return this.http.put(this.uri + '/routines/editRoutine', routine, this.requestOptions).map(res => res.json());
   }
 
+  deleteRoutine(id: string) {
+    this.createAuthenticationHeaders();
+    return this.http.delete(this.uri + '/routines/deleteRoutine/' + id, this.requestOptions).map(res => res.json());
+  }
+
 }

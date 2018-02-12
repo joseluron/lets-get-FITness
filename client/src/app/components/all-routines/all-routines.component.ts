@@ -86,7 +86,7 @@ export class AllRoutinesComponent implements OnInit {
     });
     setTimeout(() => {
       this.reloadingRoutines = false;
-    }, 4000);
+    }, 2000);
   }
 
   onCreateRoutine() {
@@ -116,6 +116,7 @@ export class AllRoutinesComponent implements OnInit {
           this.messageClass = undefined;
           this.routineForm.reset();
           this.enableRoutineForm();
+          this.reloadAllRoutines();
         }, 2000);
       }
     });

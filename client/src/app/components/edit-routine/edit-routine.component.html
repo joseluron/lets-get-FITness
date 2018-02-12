@@ -47,5 +47,8 @@
 
     <input [disabled]="!editRoutineForm.valid || processing" type="submit" class="btn btn-primary" value="Modificar">
     <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-danger">Cancelar</button>
+    <a [routerLink]="['/delete-routine', routineId]">
+      <button type="button" name="button" class="btn pull-right btn-warning">Eliminar</button>
+    </a>
   </form>
 </div>

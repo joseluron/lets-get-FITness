@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AllRoutinesComponent } from './components/all-routines/all-routines.component';
 import { EditRoutineComponent } from './components/edit-routine/edit-routine.component';
 import { SeeRoutineComponent } from './components/see-routine/see-routine.component';
+import { DeleteRoutineComponent } from './components/delete-routine/delete-routine.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -34,6 +35,11 @@ const appRoutes: Routes = [
     {
         path: 'see-routine/:id',
         component: SeeRoutineComponent,
+        canActivate: [AuthenticatedGuard]
+    },
+    {
+        path: 'delete-routine/:id',
+        component: DeleteRoutineComponent,
         canActivate: [AuthenticatedGuard]
     },
     {

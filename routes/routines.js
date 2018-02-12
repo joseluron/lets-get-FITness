@@ -93,7 +93,7 @@ module.exports = (router) => {
         } else {
             Routine.findOne({ _id: req.params.id}, (err, routine) => {
                 if(err) {
-                    res.json({ success: false, message: 'ID de rutina no valida' });
+                    res.json({ success: false, message: 'ID de rutina no valido' });
                 } else {
                     if(!routine) {
                         res.json({ success: false, message: 'No se ha encontrado ninguna rutina' });
@@ -125,7 +125,7 @@ module.exports = (router) => {
         } else {
             Routine.findOne({ _id: req.body._id }, (err, routine) => {
                 if (err) {
-                    res.json({ success: false, message: 'ID de rutina no válida' });
+                    res.json({ success: false, message: 'ID de rutina no válido' });
                 } else {
                     if (!routine) {
                         res.json({ success: false, message: 'Rutina no encontrada'});
@@ -157,6 +157,44 @@ module.exports = (router) => {
                     }
                 }
             })
+        }
+    });
+
+    router.delete('/deleteRoutine/:id', (req, res) => {
+        if (!req.params.id) {
+            res.json({ success: false, message: 'No se ha facilitado un ID de rutina' });
+        } else {
+            Routine.findOne({ _id: req.params.id }, (err, routine) => {
+                if (err) {
+                    res.json({ success: false, message: 'ID de rutina no válido' });
+                } else {
+                    if (!routine) {
+                        res.json({ success: false, message: 'Rutina no encontrada' });
+                    } else {
+                        User.findOne({ _id: req.decodedToken.userId }, (err, user) => {
+                            if (err) {
+                                res.json({ success: false, message: err });
+                            } else {
+                                if (!user) {
+                                    res.json({ success: false, message: 'No es posible autenticar al usuario' });
+                                } else {
+                                    if (user.username !== routine.createdBy) {
+                                        res.json({ success: false, message: 'No tiene permisos para eliminar esta rutina' });
+                                    } else {
+                                        routine.remove((err) => {
+                                            if (err) {
+                                                res.json({ success: false, message: err });
+                                            } else {
+                                                res.json({ success: true, message: 'Rutina eliminada con éxito!' });
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         }
     });
 
