@@ -126,10 +126,6 @@ export class AllRoutinesComponent implements OnInit {
     window.location.reload();
   }
 
-  draftComment() {
-
-  }
-
   ngOnInit() {
     this.authenticationService.getUserProfile().subscribe(data => {
       this.user = data.user.username;

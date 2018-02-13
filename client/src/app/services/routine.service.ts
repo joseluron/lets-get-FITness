@@ -59,4 +59,10 @@ export class RoutineService {
     return this.http.delete(this.uri + '/routines/deleteRoutine/' + id, this.requestOptions).map(res => res.json());
   }
 
+  likeRoutine(id: string) {
+    this.createAuthenticationHeaders();
+    const routineId = { _id: id };
+    return this.http.put(this.uri + '/routines/likeRoutine', routineId, this.requestOptions).map(res => res.json());
+  }
+
 }

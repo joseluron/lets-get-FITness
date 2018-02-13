@@ -23,14 +23,14 @@
                 <a [routerLink]="['/delete-routine/', routine._id]" type="button" name="button" class="btn btn-sm btn-danger">Eliminar</a>
             </div>
             <div *ngIf="user !== routine.createdBy">
-                <button type="button" name="button" class="btn btn-sm btn-success">
+                <button type="button" name="button" class="btn btn-sm" [ngClass]="{ 'btn-success': likedByUser, 'btn-secondary': !likedByUser }" (click)="likeRoutine()" [disabled]="processing">
                     <span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Like
                 </button>
             </div>
         </div>
         <ul class="list-group">
             <li class="list-group-item">
-                <button type="button" name="button" class="btn btn-sm btn-danger" (click)="draftComment()">Comentar</button>
+                <button type="button" name="button" class="btn btn-sm btn-danger">Comentar</button>
                 <!-- <br>
                 <form>
                     <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>

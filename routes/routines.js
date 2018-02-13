@@ -198,5 +198,58 @@ module.exports = (router) => {
         }
     });
 
+    router.put('/likeRoutine', (req, res) => {
+        if (!req.body._id) {
+            res.json({ success: false, message: 'No se ha facilitado un ID de rutina' });
+        } else {
+            Routine.findOne({ _id: req.body._id }, (err, routine) => {
+                if (err) {
+                    res.json({ success: false, message: 'ID de rutina no válido' });
+                } else {
+                    if (!routine) {
+                        res.json({ success: false, message: 'Rutina no encontrada' });
+                    } else {
+                        User.findOne({ _id: req.decodedToken.userId }, (err, user) => {
+                            if (err) {
+                                res.json({ success: false, message: err });
+                            } else {
+                                if (!user) {
+                                    res.json({ success: false, message: 'No es posible autenticar al usuario' });
+                                } else {
+                                    if (user.username === routine.createdBy) {
+                                        res.json({ success: false, message: 'No puede dar like a su propia rutina' });
+                                    } else {
+                                        if (routine.likedBy.includes(user.username)) {
+                                            routine.likes--;
+                                            let userIndex = routine.likedBy.indexOf(user.username);
+                                            routine.likedBy.splice(userIndex, 1);
+                                            routine.save((err) => {
+                                                if (err) {
+                                                    res.json({ success: false, message: err });
+                                                } else {
+                                                    res.json({ success: true, message: 'Su Like se ha eliminado con éxito' });
+                                                }
+                                            });
+                                        } else {
+                                            routine.likes++;
+                                            routine.likedBy.push(user.username);
+                                            routine.save((err) => {
+                                                if (err) {
+                                                    res.json({ success: false, message: err });
+                                                } else {
+                                                    res.json({ success: true, message: 'Like recibido con éxito' });
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    });
+
     return router;
 }

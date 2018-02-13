@@ -99,6 +99,7 @@ const routineSchema = new Schema({
     createdBy: { type: String },
     createdAt: { type: Date, default: Date.now() },
     likes: { type: Number, default: 0 },
+    likedBy: { type: Array },
     comments: [
         {
             comment: { type: String, validate: commentValidators },

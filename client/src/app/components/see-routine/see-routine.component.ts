@@ -18,6 +18,8 @@ export class SeeRoutineComponent implements OnInit {
   message: string;
   messageClass: string;
   loadingPage = true;
+  likedByUser = false;
+  processing = false;
 
   user: string;
 
@@ -26,6 +28,27 @@ export class SeeRoutineComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private activatedRoute: ActivatedRoute
   ) { }
+
+  likeRoutine() {
+    this.processing = true;
+    this.routineService.likeRoutine(this.activatedRoute.snapshot.params.id).subscribe( data => {
+      this.routineService.getRoutine(this.activatedRoute.snapshot.params.id).subscribe(likedRoutine => {
+        this.routine = likedRoutine.routine;
+        if (this.routine.likedBy.includes(this.user)) {
+          this.likedByUser = true;
+        } else {
+          this.likedByUser = false;
+        }
+      });
+      this.messageClass = 'alert alert-success';
+      this.message = data.message;
+      setTimeout(() => {
+        this.message = undefined;
+        this.messageClass = undefined;
+        this.processing = false;
+      }, 1000);
+    });
+  }
 
   ngOnInit() {
     this.authenticationService.getUserProfile().subscribe(data => {
@@ -38,6 +61,9 @@ export class SeeRoutineComponent implements OnInit {
       } else {
         this.loadingPage = false;
         this.routine = data.routine;
+        if (this.routine.likedBy.includes(this.user)) {
+          this.likedByUser = true;
+        }
       }
     });
   }

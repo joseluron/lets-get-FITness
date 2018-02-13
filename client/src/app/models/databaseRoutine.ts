@@ -5,6 +5,8 @@ export class DatabaseRoutine {
     body: string;
     createdBy: string;
     createdAt: Date;
+    likes: string;
+    likedBy: Array<string>;
     comments: [
         {
             comment: string;
