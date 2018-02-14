@@ -74,23 +74,28 @@ const bodyValidators = [
 ];
 
 let commentLengthChecker = (comment) => {
-    if (!comment[0]) {
+    if (!comment) {
         return false;
     } else {
-        if (comment[0].length < 1 || comment[0].length > 120) {
+        if (comment.length < 5 || comment.length > 120) {
             return false;
         } else {
             return true;
         }
     }
 };
-  
+
 const commentValidators = [
     {
         validator: commentLengthChecker,
-        message: 'El comentario debe tener un mínimo de 1 caractér pero un máximo de 120'
+        message: 'El comentario debe tener un mínimo de 5 caracteres pero un máximo de 120'
     }
 ];
+
+const commentSchema = new Schema({
+    comment: { type: String, validate: commentValidators },
+    commentator: { type: String }
+});
 
 const routineSchema = new Schema({
     title: { type: String, required: true, validate: titleValidators },
@@ -100,12 +105,7 @@ const routineSchema = new Schema({
     createdAt: { type: Date, default: Date.now() },
     likes: { type: Number, default: 0 },
     likedBy: { type: Array },
-    comments: [
-        {
-            comment: { type: String, validate: commentValidators },
-            commentator: { type: String }
-        }
-    ]
+    comments: { type: [commentSchema] }
 });
 
 module.exports = mongoose.model('Routine', routineSchema);

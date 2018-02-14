@@ -65,4 +65,13 @@ export class RoutineService {
     return this.http.put(this.uri + '/routines/likeRoutine', routineId, this.requestOptions).map(res => res.json());
   }
 
+  createComment( _id: string, comment: string) {
+    this.createAuthenticationHeaders();
+    const newComment = {
+      _id: _id,
+      comment: comment
+    };
+    return this.http.post(this.uri + '/routines/createComment', newComment, this.requestOptions).map(res => res.json());
+  }
+
 }

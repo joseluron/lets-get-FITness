@@ -251,5 +251,51 @@ module.exports = (router) => {
         }
     });
 
+    router.post('/createComment', (req, res) => {
+        if (!req.body.comment) {
+            res.json({ success: false, message: 'No se ha facilitado ningún comentario' });
+        } else {
+            if (!req.body._id) {
+                res.json({ success: false, message: 'No se ha facilitiado ningún ID de rutina' });
+            } else {
+                Routine.findOne({ _id: req.body._id }, (err, routine) => {
+                    if (err) {
+                        res.json({ success: false, message: 'ID de rutina no válido' });
+                    } else {
+                        if (!routine) {
+                            res.json({ success: false, message: 'Rutina no encontrada' });
+                        } else {
+                            User.findOne({ _id: req.decodedToken.userId }, (err, user) => {
+                                if (err) {
+                                    res.json({ success: false, message: err });
+                                } else {
+                                    if (!user) {
+                                        res.json({ success: false, message: 'Usuario no encontrado' });
+                                    } else {
+                                        routine.comments.push({
+                                            comment: req.body.comment,
+                                            commentator: user.username
+                                        });
+                                        routine.save((err) => {
+                                            if (err) {
+                                                if (err.errors) {
+                                                    res.json({ success: false, message: 'El comentario debe tener un mínimo de 1 caracter pero un máximo de 120' });
+                                                } else {
+                                                    res.json({ success: false, message: 'No se ha podido crear el comentario. Error: ', err });
+                                                }
+                                            } else {
+                                                res.json({ success: true, message: 'Comentario creado con éxito!' });
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    });
+
     return router;
 }

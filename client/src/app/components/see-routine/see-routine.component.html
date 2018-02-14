@@ -30,13 +30,23 @@
         </div>
         <ul class="list-group">
             <li class="list-group-item">
-                <button type="button" name="button" class="btn btn-sm btn-danger">Comentar</button>
-                <!-- <br>
-                <form>
-                    <textarea name="comment" id="" cols="30" rows="10" class="form-control"></textarea>
-                    <button type="button" name="button" class="btn btn-sm btn-info">Dejar Comentario</button>
-                    <button type="button" name="button" class="btn btn-sm btn-danger">Cancelar</button>
-                </form> -->
+                <form [formGroup]="newCommentForm" name="newCommentForm" (submit)="onCreateComment()">
+                    <div class="form-group">
+                        <label for="comment">Deje un comentario</label>
+                        <div [ngClass]="{ 'has-success': !newCommentForm.controls.comment.errors, 'has-error': newCommentForm.controls.comment.errors && newCommentForm.controls.comment.dirty }">
+                            <textarea name="comment" rows="3" cols="30" class="form-control" formControlName="comment" placeholder="*Comentario"></textarea>
+                            <ul class="help-block">
+                                <li *ngIf="newCommentForm.controls.comment.errors?.required && newCommentForm.controls.comment.dirty">Debe escribir un comentario</li>
+                                <li *ngIf="newCommentForm.controls.comment.errors?.minlength && newCommentForm.controls.comment.dirty">El comentario debe tener un mínimo de 5 caracteres</li>
+                                <li *ngIf="newCommentForm.controls.comment.errors?.maxlength && newCommentForm.controls.comment.dirty">El comentario debe tener un máximo de 120 caracteres</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input [disabled]="!newCommentForm.valid || processing" type="submit" class="btn btn-primary" value="Dejar Comentario">
+                </form>
+            </li>
+            <li *ngFor="let comment of routine.comments" class="list-group-item">
+                <strong>{{comment.commentator}}: </strong> {{ comment.comment }}
             </li>
         </ul>
     </div>
