@@ -9,7 +9,7 @@ import { LocalStorageUser } from '../models/localStorageUser';
 @Injectable()
 export class AuthenticationService {
 
-  // uri = 'http://localhost:8080';
+  // uri = 'http://localhost:8080/';
   uri = '';
 
   authenticatedToken: string;
@@ -41,7 +41,7 @@ export class AuthenticationService {
   }
 
   signIn(user: SignInUser) {
-    return this.http.post(this.uri + '/authentication/sign-in', user).map(res => res.json());
+    return this.http.post(this.uri + 'authentication/sign-in', user).map(res => res.json());
   }
 
   storeUserData(token: string, user: LocalStorageUser) {
@@ -53,7 +53,7 @@ export class AuthenticationService {
 
   getUserProfile() {
     this.createAuthenticationHeaders();
-    return this.http.get(this.uri + '/authentication/getUserProfile', this.requestOptions).map(res => res.json());
+    return this.http.get(this.uri + 'authentication/getUserProfile', this.requestOptions).map(res => res.json());
   }
 
   userSignedIn() {
