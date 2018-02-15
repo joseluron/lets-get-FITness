@@ -9,7 +9,8 @@ import { LocalStorageUser } from '../models/localStorageUser';
 @Injectable()
 export class AuthenticationService {
 
-  uri = 'http://localhost:8080';
+  // uri = 'http://localhost:8080';
+  uri = '';
 
   authenticatedToken: string;
   authenticatedUser: LocalStorageUser;
