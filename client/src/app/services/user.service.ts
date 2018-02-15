@@ -8,7 +8,7 @@ import { NewUser } from '../models/newUser';
 export class UserService {
 
   // uri = 'http://localhost:8080/';
-  uri = '';
+  uri = '/';
 
   constructor(
     private http: Http

@@ -10,7 +10,7 @@ import { LocalStorageUser } from '../models/localStorageUser';
 export class AuthenticationService {
 
   // uri = 'http://localhost:8080/';
-  uri = '';
+  uri = '/';
 
   authenticatedToken: string;
   authenticatedUser: LocalStorageUser;
