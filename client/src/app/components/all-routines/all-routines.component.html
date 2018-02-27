@@ -6,8 +6,20 @@
     </div>
 </div>
 
+<!-- <div class="row">
+    <div style="float: right;">
+        <button type="button" name="button" class="btn btn-warning" *ngIf="!inRoutineForm" (click)="openRoutineForm()">Nueva Rutina</button>
+        <button type="button" name="button" class="btn btn-default reload-button" *ngIf="!inRoutineForm" (click)="reloadAllRoutines()" [disabled]="reloadingRoutines"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recargar</button>
+    </div>
+</div> -->
+
 <button type="button" name="button" class="btn btn-warning" *ngIf="!inRoutineForm" (click)="openRoutineForm()">Nueva Rutina</button>
-<button type="button" name="button" class="btn btn-default reload-button" *ngIf="!inRoutineForm" (click)="reloadAllRoutines()" [disabled]="reloadingRoutines"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recargar</button>
+
+<div class="btn-group" role="group" *ngIf="!inRoutineForm">
+    <button type="button" name="button" class="btn btn-default reload-button" (click)="reloadAllRoutines()" [disabled]="reloadingRoutines"><span class="glyphicon glyphicon-repeat"></span>&nbsp;&nbsp;Recargar</button>
+    <button type="button" class="btn btn-default reload-button" (click)="getRoutinesByDate()" [disabled]="reloadingRoutines || lookForDate">Ver últimas rutinas</button>
+    <button type="button" class="btn btn-default reload-button" (click)="getRoutinesByLikes()" [disabled]="reloadingRoutines || !lookForDate">Ver rutinas más gustadas</button>
+</div>
 
 <div *ngIf="inRoutineForm" class="thumbnail routineForm-block-thumbnail">
     <form [formGroup]="routineForm" name="routineForm" (submit)="onCreateRoutine()">

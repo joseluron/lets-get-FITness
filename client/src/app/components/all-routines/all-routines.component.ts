@@ -20,6 +20,7 @@ export class AllRoutinesComponent implements OnInit {
   inRoutineForm = false;
   reloadingRoutines = false;
   processing = false;
+  lookForDate = true;
 
   user: string;
 
@@ -81,7 +82,35 @@ export class AllRoutinesComponent implements OnInit {
 
   reloadAllRoutines() {
     this.reloadingRoutines = true;
+    if (this.lookForDate) {
+      this.routineService.getAllRoutines().subscribe(data => {
+        this.routines = data.routines;
+      });
+    } else {
+      this.routineService.getAllRoutinesByLikes().subscribe(data => {
+        this.routines = data.routines;
+      });
+    }
+    setTimeout(() => {
+      this.reloadingRoutines = false;
+    }, 2000);
+  }
+
+  getRoutinesByDate() {
+    this.reloadingRoutines = true;
+    this.lookForDate = true;
     this.routineService.getAllRoutines().subscribe(data => {
+      this.routines = data.routines;
+    });
+    setTimeout(() => {
+      this.reloadingRoutines = false;
+    }, 2000);
+  }
+
+  getRoutinesByLikes() {
+    this.reloadingRoutines = true;
+    this.lookForDate = false;
+    this.routineService.getAllRoutinesByLikes().subscribe(data => {
       this.routines = data.routines;
     });
     setTimeout(() => {
@@ -133,6 +162,9 @@ export class AllRoutinesComponent implements OnInit {
     this.routineService.getAllRoutines().subscribe(data => {
       this.routines = data.routines;
     });
+    // this.routineService.getAllRoutinesByLikes().subscribe(data => {
+    //   this.routines = data.routines;
+    // });
   }
 
 }

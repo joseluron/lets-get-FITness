@@ -69,6 +69,20 @@ module.exports = (router) => {
         }).sort({ '_id': -1 });
     });
 
+    router.get('/getAllRoutinesByLikes', (req, res) => {
+        Routine.find({}, (err, routines) => {
+            if (err) {
+                res.json({ success: false, message: err });
+            } else {
+                if (!routines) {
+                    res.json({ success: false, message: 'No se han encontrado rutinas' });
+                } else {
+                    res.json({ success: true, routines });
+                }
+            }
+        }).sort({ 'likes': -1 });
+    });
+
     router.get('/getRoutine/:id', (req, res) => {
         if(!req.params.id) {
             res.json({ success: false, message: 'No se ha facilitado un ID de rutina' });
