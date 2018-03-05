@@ -1,6 +1,35 @@
 <h1 class="page-header">Perfíl de Usuario</h1>
 
 <ul class="list-group">
-  <li class="list-group-item"><strong>Nombre de Usuario: </strong>{{ username }}</li>
-  <li class="list-group-item"><strong>Correo Electrónico: </strong>{{ email }}</li>
+    <li class="list-group-item"><strong>Nombre de Usuario: </strong>{{ username }}</li>
+    <li class="list-group-item"><strong>Correo Electrónico: </strong>{{ email }}</li>
 </ul>
+
+<h1 class="page-header">Mi Contenido</h1>
+
+<h3 *ngIf="message">{{ message }}</h3>
+
+<div class="row" *ngIf="!message">
+    <div class="col-md-6" *ngFor="let routine of userRoutines">
+        <div class="panel panel-primary" >
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ routine.title }}</h3>
+            </div>
+            <div class="panel-body">
+                {{ routine.description }}
+            </div>
+            <div class="panel-footer">
+                <p><strong>Fecha: </strong>{{ routine.createdAt | date: 'dd - MM - yyyy'}}</p>
+                <p><strong>Likes: </strong>{{ routine.likes }}</p>
+                <div class="seeRoutine-button">
+                    <a [routerLink]="['/see-routine', routine._id]">
+                        <button type="button" name="button" class="btn btn-primary">Ver</button>
+                    </a>
+                    <a [routerLink]="['/edit-routine', routine._id]" *ngIf="username === routine.createdBy">
+                        <button type="button" name="button" class="btn btn-danger">Editar</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

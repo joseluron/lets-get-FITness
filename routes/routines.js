@@ -83,6 +83,30 @@ module.exports = (router) => {
         }).sort({ 'likes': -1 });
     });
 
+    router.get('/getAllUserRoutines', (req, res) => {
+        User.findOne({ _id: req.decodedToken.userId }, (err, user) => {
+            if (err) {
+                res.json({ success: false, message: err });
+            } else {
+                if (!user) {
+                    res.json({ success: false, message: 'No es posible autenticar al usuario' });
+                } else {
+                    Routine.find({ createdBy: user.username }, (err, routines) => {
+                        if (err) {
+                            res.json({ success: false, message: err });
+                        } else {
+                            if (!routines.length) {
+                                res.json({ success: true, hasRoutines: false, message: 'No ha creado ninguna rutina' });
+                            } else {
+                                res.json({ success: true, hasRoutines: true, routines: routines });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    });
+
     router.get('/getRoutine/:id', (req, res) => {
         if(!req.params.id) {
             res.json({ success: false, message: 'No se ha facilitado un ID de rutina' });

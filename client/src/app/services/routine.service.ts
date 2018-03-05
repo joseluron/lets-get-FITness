@@ -44,6 +44,11 @@ export class RoutineService {
     return this.http.get(this.uri + '/routines/getAllRoutinesByLikes', this.requestOptions).map(res => res.json());
   }
 
+  getAllUserRoutines() {
+    this.createAuthenticationHeaders();
+    return this.http.get(this.uri + '/routines/getAllUserRoutines', this.requestOptions).map(res => res.json());
+  }
+
   getRoutine(id: string) {
     this.createAuthenticationHeaders();
     return this.http.get(this.uri + '/routines/getRoutine/' + id, this.requestOptions).map(res => res.json());

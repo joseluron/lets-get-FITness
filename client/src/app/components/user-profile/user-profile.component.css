@@ -1,3 +1,11 @@
 .list-group-item {
     background-color: #f8f8f8;
 }
+
+.panel-body {
+    min-height: 75px;
+}
+
+.seeRoutine-button {
+    text-align: center;
+}
