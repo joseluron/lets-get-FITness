@@ -4,7 +4,8 @@
   "description": "Jose Luis Coalla Cencerrado's TFG",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "cd client && ng build --prod && cd.. && nodemon server.js"
   },
   "repository": {
     "type": "git",

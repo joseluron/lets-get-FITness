@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const port = process.env.PORT || 8080;
 
 const config = require('./config/config-dev');
 const users = require('./routes/users')(router);
@@ -26,16 +27,16 @@ app.use(cors({
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(express.static(__dirname + '/client/dist/'));
+app.use(express.static(__dirname + '/public'));
 app.use('/users', users);
 app.use('/authentication', authentication);
 app.use('/routines', routines);
 
 app.get('*', (req, res) => {
-    res.send('<h1>Hello World!</h1>');
-    // res.sendFile(path.join(__dirname + '/client/dist/index.html'));
+    // res.send('<h1>Hello World!</h1>');
+    res.sendFile(path.join(__dirname + '/public/index.html'));
 });
   
-app.listen(8080, () => {
-    console.log('Servidor funcionando en el puerto 8080');
+app.listen(port, () => {
+    console.log('Servidor funcionando en el puerto', + port);
 });
