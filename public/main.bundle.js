@@ -1732,7 +1732,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
-        this.uri = 'http://localhost:8080';
+        // uri = 'http://localhost:8080';
+        this.uri = '';
     }
     UserService.prototype.createUser = function (user) {
         return this.http.post(this.uri + '/users/createUser', user).map(function (res) { return res.json(); });
