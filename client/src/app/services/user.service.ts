@@ -7,7 +7,8 @@ import { NewUser } from '../models/newUser';
 @Injectable()
 export class UserService {
 
-  uri = 'http://localhost:8080';
+  // uri = 'http://localhost:8080';
+  uri = '';
 
   constructor(
     private http: Http
